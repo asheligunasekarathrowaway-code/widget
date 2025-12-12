@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>watched count</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+    body {
+      margin: 0;
+      background: #ffffff00; /* transparent for Notion */
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .counter-box {
+      text-align: center;
+      padding: 20px;
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      width: 200px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    #count {
+      font-size: 2.5rem;
+      margin: 15px 0;
+      font-weight: bold;
+    }
+
+    button {
+      padding: 8px 16px;
+      margin: 5px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .add { background: #f1f1ef; color: white; }
+    .subtract { background: #f1f1ef; color: white; }
+    .reset { background: #f1f1ef; color: white; }
+  </style>
+</head>
+
+<body>
+  <div class="counter-box">
+    <h3>watched count</h3>
+    <div id="count">0</div>
+    <button class="add" onclick="increment()">+</button>
+    <button class="subtract" onclick="decrement()">−</button>
+    <button class="reset" onclick="resetCounter()">Reset</button>
+  </div>
+
+  <script>
+    let count = Number(localStorage.getItem("notionCounter")) || 0;
+
+    function updateDisplay() {
+      document.getElementById("count").textContent = count;
+      localStorage.setItem("notionCounter", count);
+    }
+
+    function increment() {
+      count++;
+      updateDisplay();
+    }
+
+    function decrement() {
+      count--;
+      updateDisplay();
+    }
+
+    function resetCounter() {
+      count = 0;
+      updateDisplay();
+    }
+
+    updateDisplay();
+  </script>
+</body>
+</html>
