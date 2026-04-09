@@ -1,96 +1,145 @@
-// ----------- Countdown Timer -----------
-let cdDisplay = document.getElementById('countdownDisplay');
-let cdStart = document.getElementById('cdStart');
-let cdPause = document.getElementById('cdPause');
-let cdReset = document.getElementById('cdReset');
-let cdHours = document.getElementById('cdHours');
-let cdMinutes = document.getElementById('cdMinutes');
-let cdSeconds = document.getElementById('cdSeconds');
+const quotes = [
+  {"text":"let. that. shit. go.","author":"do no harm, take no shit"},
+  {"text":"look for everything in life but death and love. they will find you when the time comes.","author":""},
+  {"text":"trust actions, not words","author":""},
+  {"text":"trust is earned, never given","author":""},
+  {"text":"let go of what cannot stay.","author":""},
+  {"text":"what you think, you become. what you feel, you attract. what you imagine, you create.","author":""},
+  {"text":"discipline > motivation, always.","author":""},
+  {"text":"right now is all you truly have","author":""},
+  {"text":"privacy is power","author":""},
+  {"text":"its everyone's first time living too, people make mistakes","author":""},
+  {"text":"no one is perfect, this includes you","author":""},
+  {"text":"forgive, do not forget","author":""},
+  {"text":"do not regret something you once wanted","author":""},
+  {"text":"live, because one day, youre going to die.","author":""},
+  {"text":"it will be okay, but it will be different","author":""},
+  {"text":"if you were not capable, you would not have the desire","author":""},
+  {"text":"what you’re not changing, you’re choosing","author":""},
+  {"text":"do not allow yourself to die regretful","author":""},
+  {"text":"feeling ready is not a feeling, it is a decision","author":""},
+  {"text":"things change, people leave, nothing is permanent","author":""},
+  {"text":"you cannot hate yourself into becoming someone you love","author":""},
+  {"text":"what is meant for you, will find you","author":""},
+  {"text":"behind every action, there is a belief","author":""},
+  {"text":"everyone is struggling","author":""},
+  {"text":"trust only yourself and god","author":""},
+  {"text":"forgive yourself","author":""},
+  {"text":"do not accept ‘average’","author":""},
+  {"text":"dont be afraid of what anybody thinks","author":""},
+  {"text":"you may not always know how, but you will.","author":""},
+  {"text":"improve, not prove","author":""},
+  {"text":"risk > regret","author":""},
+  {"text":"fuck everyone, its only you in the end","author":""},
+  {"text":"do not relive the past","author":""},
+  {"text":"remember who you are","author":""},
+  {"text":"nothing matters until you decide it does","author":""},
+  {"text":"there is meaning behind everything, sometimes that meaning is nothing — it simply had to happen.","author":""},
+  {"text":"choose suffering on your terms—or life will choose it for you.","author":""},
+  {"text":"never lie to yourself","author":""},
+  {"text":"speak with meaning or stay silent","author":""},
+  {"text":"changing your perception is the first step to changing your reality","author":""},
+  {"text":"the only man you are afraid of is god","author":""},
+  {"text":"nothing is guaranteed","author":""},
+  {"text":"time runs out, use it well","author":""},
+  {"text":"your only limit is you","author":""},
+  {"text":"it is what it is, unless you can change it","author":""},
+  {"text":"never trade respect for attention","author":""},
+  {"text":"detach from what destroys you","author":""},
+  {"text":"privacy is power","author":""},
+  {"text":"you decide what stays and leaves","author":""},
+  {"text":"own your mistakes, don’t hide them","author":""},
+  {"text":"comparison is theft, steal nothing from others","author":""},
+  {"text":"consistency beats intensity","author":""},
+  {"text":"clarity > comfort","author":""},
+  {"text":"small wins compound","author":""},
+  {"text":"train your body and refine your mind","author":""},
+  {"text":"patience is silent power","author":""},
+  {"text":"learn relentlessly, unlearn ruthlessly","author":""},
+  {"text":"you cannot control outcomes, only effort","author":""},
+  {"text":"boundaries are your armor","author":""},
+  {"text":"silence often speaks louder","author":""},
+  {"text":"discomfort is growth in disguise","author":""},
+  {"text":"respect is non-negotiable","author":""},
+  {"text":"doubt is a signal, not a verdict","author":""},
+  {"text":"action cures fear","author":""},
+  {"text":"your story is yours to write","author":""},
+  {"text":"habits > inspiration","author":""},
+  {"text":"focus on leverage, not hustle","author":""},
+  {"text":"absence increases value","author":""},
+  {"text":"worship your body and mind","author":""},
+  {"text":"strength is built in repetition","author":""},
+  {"text":"pain is a teacher, not a curse","author":""},
+  {"text":"curiosity kills ignorance","author":""},
+  {"text":"questions > answers","author":""},
+  {"text":"overthinking is wasted thought","author":""},
+  {"text":"reading is breathing for the mind","author":""},
+  {"text":"reflection > reaction","author":""},
+  {"text":"clarity requires cutting clutter","author":""},
+  {"text":"you are the average of your circle","author":""},
+  {"text":"connection requires presence, not approval","author":""},
+  {"text":"some people are seasons, not forever","author":""},
+  {"text":"loyalty is a mirror, not a transaction","author":""},
+  {"text":"kindness is strategic, not naive","author":""},
+  {"text":"gossip corrodes credibility","author":""},
+  {"text":"distance reveals character","author":""},
+  {"text":"admiration is silent, envy is loud","author":""},
+  {"text":"energy trumps intent","author":""},
+  {"text":"respect your exits as much as your entrances","author":""},
+  {"text":"failure is tuition","author":""},
+  {"text":"discomfort is temporary, regret is permanent","author":""},
+  {"text":"persistence beats resistance","author":""},
+  {"text":"adaptation > avoidance","author":""},
+  {"text":"fear is a compass, not a jailer","author":""},
+  {"text":"resilience is quiet, not flashy","author":""},
+  {"text":"self-respect is rebellion","author":""},
+  {"text":"control your response, not events","author":""},
+  {"text":"pressure creates diamonds","author":""},
+  {"text":"patience compounds results","author":""},
+  {"text":"wonder is an anchor","author":""},
+  {"text":"simplicity is sophistication","author":""},
+  {"text":"curiosity is permission","author":""},
+  {"text":"choice is freedom","author":""},
+  {"text":"flow > planning","author":""},
+  {"text":"gratitude rewires reality","author":""},
+  {"text":"surrender is strength","author":""},
+  {"text":"chaos contains lessons","author":""},
+  {"text":"perception is reality’s lens","author":""},
+  {"text":"faith is action in the dark","author":""},
+  {"text":"meaning is optional, make your own","author":""},
+  {"text":"gratitude is magnetism","author":""},
+  {"text":"ego is a filter, not a truth","author":""},
+  {"text":"every ending births a beginning","author":""},
+  {"text":"intuition is practiced awareness","author":""},
+  {"text":"the universe owes nothing, but gives everything","author":""},
+  {"text":"time is richer than money","author":""},
+  {"text":"spend deliberately, not emotionally","author":""},
+  {"text":"leverage beats labor","author":""},
+  {"text":"knowledge compounds like interest","author":""},
+  {"text":"security is a mindset, not an account","author":""},
+  {"text":"generosity is investment, not weakness","author":""},
+  {"text":"avoid debt that steals freedom","author":""},
+  {"text":"value is subjective, measure wisely","author":""},
+  {"text":"assets > possessions","author":""},
+  {"text":"abundance begins with gratitude","author":""}
+];
 
-let cdTotalSeconds = 0;
-let cdInterval = null;
+const quoteText = document.getElementById("quote-text");
+const quoteAuthor = document.getElementById("quote-author");
+const newQuoteBtn = document.getElementById("new-quote");
 
-function updateCountdown() {
-  let hrs = Math.floor(cdTotalSeconds / 3600);
-  let mins = Math.floor((cdTotalSeconds % 3600) / 60);
-  let secs = cdTotalSeconds % 60;
-  cdDisplay.textContent = `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+function getRandomQuote() {
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  return quotes[randomIndex];
 }
 
-function startCountdown() {
-  if (cdInterval) return;
-  if (cdTotalSeconds === 0) {
-    cdTotalSeconds = parseInt(cdHours.value)*3600 + parseInt(cdMinutes.value)*60 + parseInt(cdSeconds.value);
-  }
-  cdInterval = setInterval(() => {
-    if (cdTotalSeconds > 0) {
-      cdTotalSeconds--;
-      updateCountdown();
-    } else {
-      clearInterval(cdInterval);
-      cdInterval = null;
-    }
-  }, 1000);
+function displayQuote() {
+  const quote = getRandomQuote();
+  quoteText.textContent = `"${quote.text}"`;
+  quoteAuthor.textContent = quote.author ? `- ${quote.author}` : "";
 }
 
-function pauseCountdown() {
-  clearInterval(cdInterval);
-  cdInterval = null;
-}
+newQuoteBtn.addEventListener("click", displayQuote);
 
-function resetCountdown() {
-  clearInterval(cdInterval);
-  cdInterval = null;
-  cdTotalSeconds = parseInt(cdHours.value)*3600 + parseInt(cdMinutes.value)*60 + parseInt(cdSeconds.value);
-  updateCountdown();
-}
-
-// Initialize countdown display
-updateCountdown();
-
-cdStart.addEventListener('click', startCountdown);
-cdPause.addEventListener('click', pauseCountdown);
-cdReset.addEventListener('click', resetCountdown);
-
-// ----------- Stopwatch Timer -----------
-let swDisplay = document.getElementById('stopwatchDisplay');
-let swStart = document.getElementById('swStart');
-let swPause = document.getElementById('swPause');
-let swReset = document.getElementById('swReset');
-
-let swTotalSeconds = 0;
-let swInterval = null;
-
-function updateStopwatch() {
-  let hrs = Math.floor(swTotalSeconds / 3600);
-  let mins = Math.floor((swTotalSeconds % 3600) / 60);
-  let secs = swTotalSeconds % 60;
-  swDisplay.textContent = `${hrs.toString().padStart(2,'0')}:${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
-}
-
-function startStopwatch() {
-  if (swInterval) return;
-  swInterval = setInterval(() => {
-    swTotalSeconds++;
-    updateStopwatch();
-  }, 1000);
-}
-
-function pauseStopwatch() {
-  clearInterval(swInterval);
-  swInterval = null;
-}
-
-function resetStopwatch() {
-  clearInterval(swInterval);
-  swInterval = null;
-  swTotalSeconds = 0;
-  updateStopwatch();
-}
-
-// Initialize stopwatch display
-updateStopwatch();
-
-swStart.addEventListener('click', startStopwatch);
-swPause.addEventListener('click', pauseStopwatch);
-swReset.addEventListener('click', resetStopwatch);
+// Display one quote on load
+displayQuote();
